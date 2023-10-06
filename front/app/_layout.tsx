@@ -1,8 +1,8 @@
-import Octicons from "@expo/vector-icons/Octicons";
 import { OpenSans_400Regular } from "@expo-google-fonts/open-sans";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { loadAsync } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Tabs } from "expo-router";
+import { Home } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
 
 export default function RootLayout() {
@@ -11,7 +11,7 @@ export default function RootLayout() {
   useEffect(() => {
     async function prepare() {
       try {
-        await loadAsync({ OpenSans_400Regular, ...Octicons.font });
+        await loadAsync({ OpenSans_400Regular });
       } catch (e) {
         console.warn(e);
       } finally {
@@ -32,7 +32,25 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider>
-      <Stack initialRouteName="index" screenOptions={{ headerShown: false }} />
+      <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs.Screen
+          name="index"
+          options={{
+            href: "/",
+            title: "Home",
+            tabBarIcon: () => <Home color="#84CC16" size={25} />,
+            tabBarIconStyle: { marginTop: 6 },
+            tabBarStyle: { height: 60 },
+            tabBarLabelStyle: {
+              color: "#525252",
+              marginTop: 0,
+              fontSize: 12,
+              marginBottom: 8,
+            },
+          }}
+        />
+        <Tabs.Screen name="other" options={{ href: null }} />
+      </Tabs>
     </GluestackUIProvider>
   );
 }
