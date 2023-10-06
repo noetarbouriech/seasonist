@@ -1,15 +1,13 @@
-import { Center, Heading, Image } from "@gluestack-ui/themed";
-import { Link } from "expo-router";
-import { View } from "react-native";
+import { ScrollView } from "@gluestack-ui/themed";
+
+import Header from "../components/Header";
+import OfferList from "../components/OfferList";
 
 export default function Home() {
   return (
-    <View>
-      <Center h="$full" gap="$10">
-        <Heading size="2xl">Index page</Heading>
-        <Image source={require("../assets/images/dog.jpg")} alt="dog" />
-        <Link href="/other">Go to other page</Link>
-      </Center>
-    </View>
+    <ScrollView w="$full" minHeight="$full" bgColor="$white">
+      <Header title="👋 Welcome" search={{ placeholder: "Search an offer" }} />
+      <OfferList title="Recommended for you" />
+    </ScrollView>
   );
 }
