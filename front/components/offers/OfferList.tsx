@@ -1,4 +1,4 @@
-import { Box, Heading, VStack } from "@gluestack-ui/themed";
+import { Heading, VStack } from "@gluestack-ui/themed";
 
 import OfferCard from "./OfferCard";
 
@@ -17,7 +17,7 @@ export default function OfferList(props: Props) {
   };
 
   return (
-    <Box px="$4" pt="$8" pb="$4">
+    <VStack px="$4" pt="$8" pb="$4" space="sm">
       <Heading pl="$4" size="xl">
         {props.title ?? "Offers"}
       </Heading>
@@ -28,6 +28,6 @@ export default function OfferList(props: Props) {
             <OfferCard key={i} job={job} />
           ))}
       </VStack>
-    </Box>
+    </VStack>
   );
 }

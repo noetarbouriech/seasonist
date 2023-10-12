@@ -30,7 +30,7 @@ export default function OfferCard(props: Props) {
           bgColor: "$backgroundLightMuted",
         },
       }}
-      onPress={() => router.push("/other")}
+      onPress={() => router.push(`/offers/${props.job.id}`)}
     >
       <Box
         rowGap="$1"

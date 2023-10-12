@@ -1,7 +1,7 @@
 import { ScrollView } from "@gluestack-ui/themed";
 
 import Header from "../components/Header";
-import OfferList from "../components/OfferList";
+import OfferList from "../components/offers/OfferList";
 
 export default function Home() {
   return (
