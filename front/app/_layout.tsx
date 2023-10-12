@@ -39,17 +39,16 @@ export default function RootLayout() {
             href: "/",
             title: "Home",
             tabBarIcon: () => <Home color="#84CC16" size={25} />,
-            tabBarIconStyle: { marginTop: 6 },
-            tabBarStyle: { height: 60 },
             tabBarLabelStyle: {
               color: "#525252",
               marginTop: 0,
               fontSize: 12,
-              marginBottom: 8,
+              marginBottom: 6,
             },
           }}
         />
         <Tabs.Screen name="other" options={{ href: null }} />
+        <Tabs.Screen name="offers/[id]" options={{ href: null }} />
       </Tabs>
     </GluestackUIProvider>
   );
