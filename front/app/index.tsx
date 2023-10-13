@@ -8,7 +8,7 @@ export default function Home() {
       <Center h="$full" gap="$10">
         <Heading size="2xl">Index page</Heading>
         <Image source={require("../assets/images/dog.jpg")} alt="dog" />
-        <Link href="/other">Go to other page</Link>
+        <Link href="/login">Go to other page</Link>
       </Center>
     </View>
   );

@@ -32,7 +32,7 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider>
-      <Stack initialRouteName="index" screenOptions={{ headerShown: false }} />
+      <Stack initialRouteName="login" screenOptions={{ headerShown: false }} />
     </GluestackUIProvider>
   );
 }
