@@ -1,7 +1,7 @@
 import { OpenSans_400Regular } from "@expo-google-fonts/open-sans";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { loadAsync } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 
 import BottomTabNavigation from "../components/BottomTabNavigation";
@@ -17,6 +17,7 @@ export default function RootLayout() {
         console.warn(e);
       } finally {
         setAppIsReady(true);
+        router.replace("/home");
       }
     }
 
@@ -24,7 +25,9 @@ export default function RootLayout() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) await SplashScreen.hideAsync();
+    if (!appIsReady) return;
+
+    await SplashScreen.hideAsync();
   }, [appIsReady]);
 
   if (!onLayoutRootView()) {
