@@ -1,6 +1,6 @@
 package org.seasonist
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase
+import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import org.hibernate.annotations.CreationTimestamp
@@ -24,4 +24,4 @@ data class Company(
 
         @CreationTimestamp
         val createdAt: Date? = null
-) : PanacheEntityBase()
+) : PanacheEntityBase

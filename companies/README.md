@@ -43,16 +43,26 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./build/companies-0.1.0-runner`
+You can then execute your native executable with: `./build/companies-1.0.0-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
 
 ## Related Guides
 
+- Hibernate ORM with Panache and Kotlin ([guide](https://quarkus.io/guides/hibernate-orm-panache-kotlin)): Define your persistent model in Hibernate ORM with Panache
 - Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
 - SmallRye GraphQL ([guide](https://quarkus.io/guides/smallrye-graphql)): Create GraphQL Endpoints using the code-first approach from MicroProfile GraphQL
 
 ## Provided Code
+
+### Hibernate ORM
+
+Create your first JPA entity
+
+[Related guide section...](https://quarkus.io/guides/hibernate-orm)
+
+
+[Related Hibernate with Panache in Kotlin section...](https://quarkus.io/guides/hibernate-orm-panache-kotlin)
 
 ### SmallRye GraphQL
 

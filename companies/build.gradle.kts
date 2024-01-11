@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.allopen") version "1.9.10"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.allopen") version "1.9.22"
     id("io.quarkus")
 }
 
@@ -14,18 +14,20 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    implementation("io.quarkus:quarkus-container-image-docker")
     implementation("io.quarkus:quarkus-jdbc-postgresql")
-    implementation("io.quarkus:quarkus-hibernate-orm-panache")
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
+    implementation("io.quarkus:quarkus-hibernate-orm-panache-kotlin")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-smallrye-graphql")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")
+    implementation("io.quarkus:quarkus-hibernate-orm")
     testImplementation("io.quarkus:quarkus-junit5")
 }
 
 group = "org.seasonist"
-version = "0.1.0"
+version = "1.0.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
