@@ -13,8 +13,7 @@ import {
   UserCircleIcon,
 } from "lucide-react-native";
 import { ReactElement, cloneElement, useMemo } from "react";
-
-import OfferFilter from "./offers/OfferFilter";
+import { SheetManager } from "react-native-actions-sheet";
 
 enum Page {
   Home,
@@ -45,39 +44,41 @@ export default function BottomTabNavigation() {
   return (
     <>
       <HStack
-        h={60}
-        alignItems="center"
         justifyContent="center"
         borderTopColor="$secondary0"
         borderTopWidth={2}
-        px="$16"
+        px={25}
       >
-        <HStack justifyContent="space-between" w="$full">
-          <Tab
-            label="Home"
-            icon={<HomeIcon />}
-            isActive={activePage === Page.Home}
-            href="/home"
-          />
+        <Tab
+          label="Home"
+          icon={<HomeIcon />}
+          isActive={activePage === Page.Home}
+          href="/home"
+        />
 
-          <Tab label="Categories" icon={<FilterIcon />} />
+        <Tab
+          label="Categories"
+          icon={<FilterIcon />}
+          onPress={() => {
+            router.push("/home");
+            SheetManager.show("offer-filter");
+          }}
+        />
 
-          <Tab
-            label="Inbox"
-            icon={<InboxIcon />}
-            isActive={activePage === Page.Inbox}
-            href="/other"
-          />
+        <Tab
+          label="Inbox"
+          icon={<InboxIcon />}
+          isActive={activePage === Page.Inbox}
+          href="/other"
+        />
 
-          <Tab
-            label="Profile"
-            icon={<UserCircleIcon />}
-            isActive={activePage === Page.Profile}
-            href="/other"
-          />
-        </HStack>
+        <Tab
+          label="Profile"
+          icon={<UserCircleIcon />}
+          isActive={activePage === Page.Profile}
+          href="/other"
+        />
       </HStack>
-      <OfferFilter />
     </>
   );
 }
@@ -107,8 +108,10 @@ function Tab(props: TabProps) {
         if (props.href) router.push(props.href);
         if (props.onPress) props.onPress();
       }}
+      w="25%"
+      h={60}
     >
-      <VStack alignItems="center">
+      <VStack h="$full" alignItems="center" justifyContent="center">
         {icon}
         <Text size="sm" color={textColor}>
           {props.label}

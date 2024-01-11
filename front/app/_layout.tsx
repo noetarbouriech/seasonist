@@ -3,8 +3,10 @@ import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { loadAsync } from "expo-font";
 import { SplashScreen, Stack, router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
+import { SheetProvider, registerSheet } from "react-native-actions-sheet";
 
 import BottomTabNavigation from "../components/BottomTabNavigation";
+import OfferFilter from "../components/offers/OfferFilter";
 
 export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -12,6 +14,7 @@ export default function RootLayout() {
   useEffect(() => {
     async function prepare() {
       try {
+        registerSheet("offer-filter", OfferFilter);
         await loadAsync({ OpenSans_400Regular });
       } catch (e) {
         console.warn(e);
@@ -36,8 +39,13 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider>
-      <Stack initialRouteName="/home" screenOptions={{ headerShown: false }} />
-      <BottomTabNavigation />
+      <SheetProvider>
+        <Stack
+          initialRouteName="/home"
+          screenOptions={{ headerShown: false }}
+        />
+        <BottomTabNavigation />
+      </SheetProvider>
     </GluestackUIProvider>
   );
 }
