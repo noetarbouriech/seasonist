@@ -1,0 +1,7 @@
+# Delete a company
+mutation deleteCompany($id: String!) {
+    deleteCompany(id: $id) {
+        id
+        name
+    }
+}

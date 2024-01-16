@@ -1,0 +1,10 @@
+# Find a company by id
+query findCompanyById {
+findById(id: $companyId) {
+id
+name
+address
+createdAt
+updatedAt
+}
+}
