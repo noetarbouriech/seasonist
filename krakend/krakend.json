@@ -6,7 +6,7 @@
   "timeout": "3000ms",
   "endpoints": [
     {
-      "@comment": "Get companies",
+      "@comment": "List companies",
       "endpoint": "/api/companies",
       "method": "GET",
       "backend": [
@@ -48,7 +48,53 @@
       ]
     },
     {
-      "@comment": "Delete company NOT WORKING",
+      "@comment": "Find a company",
+      "endpoint": "/api/companies/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "findCompanyById",
+              "query_path": "/graphql/companies/find.graphql",
+              "variables": {
+                "companyId": "{id}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update company",
+      "endpoint": "/api/companies",
+      "method": "PATCH",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateCompany",
+              "query_path": "/graphql/companies/update.graphql",
+              "variables": {
+                "companyId": "default",
+                "companyAddress": "default",
+                "companyName": "default"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete company",
       "endpoint": "/api/companies/{id}",
       "method": "DELETE",
       "backend": [
@@ -58,9 +104,9 @@
           "timeout": "4100ms",
           "extra_config": {
             "backend/graphql": {
-              "type": "mutation",
+              "type": "query",
               "operationName": "deleteCompany",
-                "query_path": "/graphql/companies/delete.graphql",
+              "query_path": "/graphql/companies/delete.graphql",
               "variables": {
                 "id": "{id}"
               }
