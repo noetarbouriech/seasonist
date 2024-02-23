@@ -1,0 +1,21 @@
+{
+  "realm" : "seasonist",
+  "users" : [ {
+    "id" : "1521143c-4aa9-4bbf-8bae-14f6fb44597c",
+    "createdTimestamp" : 1708588640266,
+    "username" : "service-account-users-service",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "users-service",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-seasonist" ],
+    "clientRoles" : {
+      "realm-management" : [ "manage-realm", "manage-clients", "manage-users" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
