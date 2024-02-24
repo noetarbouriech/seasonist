@@ -19,7 +19,18 @@ services:
       timeout: 5s
       retries: 6
     ports:
+      - "8081:8080"
+
+  krakend:
+    # The :watch image restarts the service automatically when the configuration files change.
+    # Do not use this image in production, it's meant to speed up your testing and development.
+    image: devopsfaith/krakend:2-watch
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+    ports:
       - "8080:8080"
+    volumes:
+      - ./krakend/krakend.json:/etc/krakend/krakend.json
+      - ./krakend/graphql/:/graphql
 
 volumes:
   postgres_data:

@@ -1,0 +1,157 @@
+{
+  "$schema": "https://www.krakend.io/schema/v2.5/krakend.json",
+  "version": 3,
+  "name": "Seasonist API Gateway",
+  "port": 8080,
+  "timeout": "3000ms",
+  "endpoints": [
+    {
+      "@comment": "List companies",
+      "endpoint": "/api/companies",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "listCompanies",
+              "query_path": "/graphql/companies/list.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Create company",
+      "endpoint": "/api/companies",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addCompany",
+              "query_path": "/graphql/companies/create.graphql",
+              "variables": {
+                "companyAddress": "default",
+                "companyName": "default"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Find a company",
+      "endpoint": "/api/companies/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "findCompanyById",
+              "query_path": "/graphql/companies/find.graphql",
+              "variables": {
+                "companyId": "{id}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update company",
+      "endpoint": "/api/companies",
+      "method": "PATCH",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateCompany",
+              "query_path": "/graphql/companies/update.graphql",
+              "variables": {
+                "companyId": "default",
+                "companyAddress": "default",
+                "companyName": "default"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete company",
+      "endpoint": "/api/companies/{id}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "host": ["http://companies-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "deleteCompany",
+              "query_path": "/graphql/companies/delete.graphql",
+              "variables": {
+                "id": "{id}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sequential_start": true,
+  "async_agent": [],
+  "extra_config": {
+    "telemetry/logging": {
+      "level": "DEBUG",
+      "prefix": "[KRAKEND]",
+      "syslog": true,
+      "stdout": true
+    },
+    "security/cors": {
+      "allow_origins": [
+        "*"
+      ],
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "OPTIONS",
+        "TRACE",
+        "PATCH"
+      ],
+      "allow_headers": [
+        "Origin",
+        "Authorization",
+        "Content-Type"
+      ],
+      "expose_headers": [
+        "Content-Length"
+      ],
+      "max_age": "12h",
+      "allow_credentials": true
+    }
+  },
+  "output_encoding": "json",
+  "debug_endpoint": false
+}
