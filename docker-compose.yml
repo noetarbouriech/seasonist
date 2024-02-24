@@ -1,26 +1,8 @@
-version: '3'
+version: "3.8"
+include:
+  - ./companies/compose.yaml
+  - ./offers/compose.yaml
 services:
-  companies-db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  companies-api:
-    image: seasonist/companies:1.0.0
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 5s
-      timeout: 5s
-      retries: 6
-    ports:
-      - "8081:8080"
-
   krakend:
     # The :watch image restarts the service automatically when the configuration files change.
     # Do not use this image in production, it's meant to speed up your testing and development.
@@ -31,6 +13,3 @@ services:
     volumes:
       - ./krakend/krakend.json:/etc/krakend/krakend.json
       - ./krakend/graphql/:/graphql
-
-volumes:
-  postgres_data:
