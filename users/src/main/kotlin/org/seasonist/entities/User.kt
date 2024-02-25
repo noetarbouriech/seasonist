@@ -2,7 +2,7 @@ package org.seasonist.entities
 
 import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
-import org.seasonist.dtos.request.RegisterRequest
+import org.seasonist.dtos.RegisterRequest
 import java.util.*
 
 class User {

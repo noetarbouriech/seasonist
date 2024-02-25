@@ -1,4 +1,4 @@
-package org.seasonist.dtos.request
+package org.seasonist.dtos
 
 import org.seasonist.entities.Gender
 import org.seasonist.entities.Nationality

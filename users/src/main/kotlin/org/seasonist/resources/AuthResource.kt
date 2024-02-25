@@ -1,12 +1,12 @@
-package org.seasonist.rest
+package org.seasonist.resources
 
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.Response.Status
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
-import org.seasonist.dtos.request.ErrorResponse
-import org.seasonist.dtos.request.RegisterRequest
+import org.seasonist.dtos.ErrorResponse
+import org.seasonist.dtos.RegisterRequest
 import org.seasonist.entities.User
 import org.seasonist.services.KeycloakService
 
