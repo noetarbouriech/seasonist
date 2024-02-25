@@ -13,7 +13,6 @@ enum class Group {
 
 	companion object {
 		fun toEnum(value: String): Group {
-			println("value: $value")
 			return when (value) {
 				"employers" -> EMPLOYER
 				"admins" -> ADMIN
