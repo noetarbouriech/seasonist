@@ -20,8 +20,8 @@ class User {
 	var subscriptionKind: SubscriptionKind = SubscriptionKind.FREE
 	var bio: String = ""
 	var nationality: Nationality? = null
-	val recommendations: MutableList<Recommendation> = mutableListOf()
-	val experiences: MutableList<Experience> = mutableListOf()
+	var recommendations: MutableList<Recommendation> = mutableListOf()
+	var experiences: MutableList<Experience> = mutableListOf()
 
 	fun toRepresentation(password: String): UserRepresentation {
 		val userRepr = UserRepresentation()
@@ -50,6 +50,12 @@ class User {
 		userRepr.isEnabled = true
 
 		return userRepr
+	}
+
+	fun populateExperiences() {
+	fun fetchExperiences() {
+		val userId = this.id ?: return
+		this.experiences = Experience.list("userId", userId).toMutableList()
 	}
 
 	companion object {

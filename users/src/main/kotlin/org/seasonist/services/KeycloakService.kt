@@ -5,6 +5,7 @@ import jakarta.ws.rs.core.Response.Status
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.UserRepresentation
 import org.seasonist.entities.User
+import java.util.UUID
 
 @ApplicationScoped
 class KeycloakService(
@@ -18,6 +19,9 @@ class KeycloakService(
 
 	fun findUser(email: String): UserRepresentation? =
 		this.getRealm().users().searchByUsername(email, true).firstOrNull()
+
+	fun findUser(id: UUID): UserRepresentation? =
+		this.getRealm().users().get(id.toString()).toRepresentation()
 
 	fun createUser(user: User, password: String): User? {
 		val res = this.getRealm().users().create(user.toRepresentation(password))
