@@ -1,6 +1,7 @@
 package org.seasonist
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase
+import jakarta.annotation.Nullable
 import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -26,6 +27,9 @@ data class Offer(
 
     @ElementCollection
     var jobCategoryIds: List<UUID>? = null,
+
+    @ElementCollection
+    var benefits: List<String>? = null,
 
     var companyId: UUID? = null,
 

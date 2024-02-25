@@ -5,4 +5,4 @@ import jakarta.enterprise.context.ApplicationScoped
 import java.util.*
 
 @ApplicationScoped
-class OfferRepository: PanacheRepositoryBase<Offer, UUID> {}
+class OfferRepository: PanacheRepositoryBase<Offer, UUID>

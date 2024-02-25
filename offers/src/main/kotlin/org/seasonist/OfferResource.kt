@@ -30,6 +30,7 @@ class OfferResource(val repository: OfferRepository) {
         title: String,
         authorId: String,
         jobCategoryIds: List<String>,
+        benefits: List<String>?,
         companyId: String,
         body: String,
         open: Boolean
@@ -38,6 +39,7 @@ class OfferResource(val repository: OfferRepository) {
             title = title,
             authorId = UUID.fromString(authorId),
             jobCategoryIds = jobCategoryIds.map { UUID.fromString(it) },
+            benefits = benefits,
             companyId = UUID.fromString(companyId),
             body = body,
             open = open
@@ -54,6 +56,7 @@ class OfferResource(val repository: OfferRepository) {
         title: String,
         authorId: String,
         jobCategoryIds: List<String>,
+        benefits: List<String>?,
         companyId: String,
         body: String,
         open: Boolean
@@ -64,6 +67,7 @@ class OfferResource(val repository: OfferRepository) {
             offer.title = title
             offer.authorId = UUID.fromString(authorId)
             offer.jobCategoryIds = jobCategoryIds.map { UUID.fromString(it) }
+            offer.benefits = benefits
             offer.companyId = UUID.fromString(companyId)
             offer.body = body
             offer.open = open
