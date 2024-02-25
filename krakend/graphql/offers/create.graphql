@@ -1,0 +1,10 @@
+# Create a company
+mutation addCompany($companyAddress: String!, $companyName: String!) {
+    addCompany(address: $companyAddress, name: $companyName) {
+        id
+        name
+        address
+        createdAt
+        updatedAt
+    }
+}

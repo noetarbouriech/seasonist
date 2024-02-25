@@ -1,0 +1,10 @@
+# Update a company
+mutation updateCompany($companyId: String!, $companyAddress: String!, $companyName: String!) {
+    updateCompany(id: $companyId, address: $companyAddress, name: $companyName) {
+        id
+        name
+        address
+        createdAt
+        updatedAt
+    }
+}

@@ -1,0 +1,9 @@
+# List all companies
+query listCompanies {
+  list {
+    id
+    name
+    address
+  }
+}
+
