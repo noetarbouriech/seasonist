@@ -52,7 +52,11 @@ class User {
 		return userRepr
 	}
 
-	fun populateExperiences() {
+	fun fetchRecommendations() {
+		val userId = this.id ?: return
+		this.recommendations = Recommendation.list("userId", userId).toMutableList()
+	}
+
 	fun fetchExperiences() {
 		val userId = this.id ?: return
 		this.experiences = Experience.list("userId", userId).toMutableList()
