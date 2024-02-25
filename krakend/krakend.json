@@ -114,8 +114,154 @@
           }
         }
       ]
+    },
+    {
+      "@comment": "List offers",
+      "endpoint": "/api/offers",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "listOffers",
+              "query_path": "/graphql/offers/list.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Create offer",
+      "endpoint": "/api/offers",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addOffer",
+              "query_path": "/graphql/offers/create.graphql",
+              "variables": {
+                "offerAddress": "default",
+                "offerName": "default"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Find an offer",
+      "endpoint": "/api/offers/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "findOfferById",
+              "query_path": "/graphql/offers/find.graphql",
+              "variables": {
+                "offerId": "{id}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update offer",
+      "endpoint": "/api/offers",
+      "method": "PATCH",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateOffer",
+              "query_path": "/graphql/offers/update.graphql",
+              "variables": {
+                "offerId": "default",
+                "offerAddress": "default",
+                "offerName": "default"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete offer",
+      "endpoint": "/api/offers/{id}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "deleteOffer",
+              "query_path": "/graphql/offers/delete.graphql",
+              "variables": {
+                "id": "{id}"
+              }
+            }
+          }
+        }
+      ]
     }
   ],
+  "sequential_start": true,
+  "async_agent": [],
+  "extra_config": {
+    "telemetry/logging": {
+      "level": "DEBUG",
+      "prefix": "[KRAKEND]",
+      "syslog": true,
+      "stdout": true
+    },
+    "security/cors": {
+      "allow_origins": [
+        "*"
+      ],
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "OPTIONS",
+        "TRACE",
+        "PATCH"
+      ],
+      "allow_headers": [
+        "Origin",
+        "Authorization",
+        "Content-Type"
+      ],
+      "expose_headers": [
+        "Content-Length"
+      ],
+      "max_age": "12h",
+      "allow_credentials": true
+    }
+  },
   "sequential_start": true,
   "async_agent": [],
   "extra_config": {

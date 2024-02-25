@@ -1,7 +1,6 @@
-# Delete a company
-mutation deleteCompany($id: String!) {
-    deleteCompany(id: $id) {
+# Delete an offer
+mutation deleteOffer($id: String!) {
+    deleteOffer(id: $id) {
         id
-        name
     }
 }

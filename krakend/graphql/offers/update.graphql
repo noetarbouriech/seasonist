@@ -1,9 +1,13 @@
-# Update a company
-mutation updateCompany($companyId: String!, $companyAddress: String!, $companyName: String!) {
-    updateCompany(id: $companyId, address: $companyAddress, name: $companyName) {
+# Update an offer
+mutation updateOffer($id: String!, $title: String!, $authorId: String!, $jobCategoryIds: [String]!, $companyId: String!, $body: String!, $open: Boolean!) {
+    updateOffer(id: $id, title: $title, authorId: $authorId, jobCategoryIds: $jobCategoryIds, companyId: $companyId, body: $body, open: $open) {
         id
-        name
-        address
+        title
+        authorId
+        jobCategoryIds
+        companyId
+        body
+        open
         createdAt
         updatedAt
     }

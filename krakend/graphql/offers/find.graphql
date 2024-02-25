@@ -1,9 +1,13 @@
-# Find a company by id
-query findCompanyById($companyId: String!) {
-    findById(id: $companyId) {
+# Find an offer by id
+query findOfferById($offerId: String!) {
+    findById(id: $offerId) {
         id
-        name
-        address
+        title
+        authorId
+        jobCategoryIds
+        companyId
+        body
+        open
         createdAt
         updatedAt
     }

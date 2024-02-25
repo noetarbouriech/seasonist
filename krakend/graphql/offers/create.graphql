@@ -1,9 +1,13 @@
-# Create a company
-mutation addCompany($companyAddress: String!, $companyName: String!) {
-    addCompany(address: $companyAddress, name: $companyName) {
+# Create an offer
+mutation addOffer($title: String!, $body: String!, $jobCategoryIds: [String]!, $companyId: String!, $open: Boolean!, $authorId: String!) {
+    addOffer(title: $title, body: $body, jobCategoryIds: $jobCategoryIds, companyId: $companyId, open: $open, authorId: $authorId) {
         id
-        name
-        address
+        title
+        authorId
+        jobCategoryIds
+        companyId
+        body
+        open
         createdAt
         updatedAt
     }

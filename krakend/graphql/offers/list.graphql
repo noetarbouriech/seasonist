@@ -1,9 +1,13 @@
-# List all companies
-query listCompanies {
+# List all offers
+query listOffers {
   list {
     id
-    name
-    address
+    title
+    jobCategoryIds
+    companyId
+    open
+    createdAt
+    updatedAt
   }
 }
 
