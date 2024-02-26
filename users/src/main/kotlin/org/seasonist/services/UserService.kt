@@ -1,6 +1,8 @@
 package org.seasonist.services
 
+import io.smallrye.graphql.api.Context
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.json.JsonValue
 import org.eclipse.microprofile.graphql.GraphQLException
 import org.keycloak.representations.idm.UserRepresentation
 import org.seasonist.entities.Gender
@@ -12,31 +14,22 @@ import java.util.*
 class UserService(
 	private val keycloakService: KeycloakService,
 ) {
-	fun getUser(email: String, hasRecommendations: Boolean, hasExperiences: Boolean): User {
+	fun getUser(email: String, graphQLContext: Context): User {
 		val userRepr = this.keycloakService.findUser(email)
 			?: throw GraphQLException("User not found", GraphQLException.ExceptionType.DataFetchingException)
+		val hasRecommendationsField = doesSelectedFieldsContains(RECOMMENDATIONS_FIELD, graphQLContext)
+		val hasExperiencesField = doesSelectedFieldsContains(EXPERIENCES_FIELD, graphQLContext)
 
-		return this.convertUserRepresentationToUser(userRepr, hasRecommendations, hasExperiences)
+		return convertUserRepresentationToUser(userRepr, hasRecommendationsField, hasExperiencesField)
 	}
 
-	fun getUser(id: UUID, hasRecommendations: Boolean, hasExperiences: Boolean): User {
+	fun getUser(id: UUID, graphQLContext: Context): User {
 		val userRepr = this.keycloakService.findUser(id)
 			?: throw GraphQLException("User not found", GraphQLException.ExceptionType.DataFetchingException)
+		val hasRecommendationsField = doesSelectedFieldsContains(RECOMMENDATIONS_FIELD, graphQLContext)
+		val hasExperiencesField = doesSelectedFieldsContains(EXPERIENCES_FIELD, graphQLContext)
 
-		return this.convertUserRepresentationToUser(userRepr, hasRecommendations, hasExperiences)
-	}
-
-	private fun convertUserRepresentationToUser(
-		userRepresentation: UserRepresentation,
-		hasRecommendations: Boolean,
-		hasExperiences: Boolean,
-	): User {
-		val user = User.from(userRepresentation)
-
-		if (hasRecommendations) user.fetchRecommendations()
-		if (hasExperiences) user.fetchExperiences()
-
-		return user
+		return convertUserRepresentationToUser(userRepr, hasRecommendationsField, hasExperiencesField)
 	}
 
 	fun updateUser(
@@ -64,5 +57,35 @@ class UserService(
 		if (bio != null) userRepr.attributes["bio"] = listOf(bio)
 		if (nationality != null) userRepr.attributes["nationality"] = listOf(nationality.toString())
 		this.keycloakService.updateUser(userRepr)
+	}
+
+	companion object {
+		const val RECOMMENDATIONS_FIELD = "recommendations"
+		const val EXPERIENCES_FIELD = "experiences"
+
+		fun doesSelectedFieldsContains(fieldName: String, context: Context): Boolean =
+			context.selectedFields.asJsonArray().any { field ->
+				if (!field.valueType.equals(JsonValue.ValueType.OBJECT))
+					return@any false
+
+				val obj = field.asJsonObject()
+				if (!obj.containsKey(fieldName))
+					return@any false
+
+				true
+			}
+
+		private fun convertUserRepresentationToUser(
+			userRepresentation: UserRepresentation,
+			hasRecommendations: Boolean,
+			hasExperiences: Boolean,
+		): User {
+			val user = User.from(userRepresentation)
+
+			if (hasRecommendations) user.fetchRecommendations()
+			if (hasExperiences) user.fetchExperiences()
+
+			return user
+		}
 	}
 }
