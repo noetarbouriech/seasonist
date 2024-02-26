@@ -31,6 +31,14 @@ class UserResource(
 		doesSelectedFieldsContains(EXPERIENCES_FIELD)
 	)
 
+	@Query
+	@Description("Get User from an ID")
+	fun getUserById(@Name("userId") userId: UUID): User = this.userService.getUser(
+		userId,
+		doesSelectedFieldsContains(RECOMMENDATIONS_FIELD),
+		doesSelectedFieldsContains(EXPERIENCES_FIELD)
+	)
+
 	@Mutation
 	fun updateUserInformation(
 		userId: UUID,
