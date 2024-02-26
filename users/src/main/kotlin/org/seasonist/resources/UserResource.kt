@@ -5,9 +5,7 @@ import jakarta.json.JsonValue
 import jakarta.transaction.Transactional
 import org.eclipse.microprofile.graphql.*
 import org.eclipse.microprofile.graphql.GraphQLException.ExceptionType
-import org.seasonist.entities.Experience
-import org.seasonist.entities.Recommendation
-import org.seasonist.entities.User
+import org.seasonist.entities.*
 import org.seasonist.services.UserService
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -32,6 +30,27 @@ class UserResource(
 		doesSelectedFieldsContains(RECOMMENDATIONS_FIELD),
 		doesSelectedFieldsContains(EXPERIENCES_FIELD)
 	)
+
+	@Mutation
+	fun updateUserInformation(
+		userId: UUID,
+		firstname: String?,
+		lastname: String?,
+		email: String?,
+		phone: String?,
+		address: String?,
+		gender: Gender?,
+		bio: String?,
+		nationality: Nationality?,
+	): User {
+		this.userService.updateUser(userId, firstname, lastname, email, phone, address, gender, bio, nationality)
+
+		val hasRecommendationsField = doesSelectedFieldsContains(RECOMMENDATIONS_FIELD)
+		val hasExperiencesField = doesSelectedFieldsContains(EXPERIENCES_FIELD)
+		val user = this.userService.getUser(userId, hasRecommendationsField, hasExperiencesField)
+
+		return user
+	}
 
 	@Mutation
 	@Transactional

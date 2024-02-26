@@ -31,4 +31,6 @@ class KeycloakService(
 
 		return this.findUser(user.email)?.let { User.from(it) }
 	}
+
+	fun updateUser(user: UserRepresentation) = this.getRealm().users().get(user.id.toString()).update(user)
 }
