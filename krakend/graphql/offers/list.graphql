@@ -3,7 +3,7 @@ query listOffers {
   list {
     id
     title
-    jobCategoryIds
+    jobCategory
     companyId
     open
     createdAt

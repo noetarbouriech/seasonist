@@ -29,7 +29,7 @@ class OfferResource(val repository: OfferRepository) {
     fun addOffer(
         title: String,
         authorId: String,
-        jobCategoryIds: List<String>,
+        jobCategory: JobCategory,
         benefits: List<String>?,
         companyId: String,
         body: String,
@@ -38,7 +38,7 @@ class OfferResource(val repository: OfferRepository) {
         val offer = Offer(
             title = title,
             authorId = UUID.fromString(authorId),
-            jobCategoryIds = jobCategoryIds.map { UUID.fromString(it) },
+            jobCategory = jobCategory,
             benefits = benefits,
             companyId = UUID.fromString(companyId),
             body = body,
@@ -55,7 +55,7 @@ class OfferResource(val repository: OfferRepository) {
         id: String,
         title: String,
         authorId: String,
-        jobCategoryIds: List<String>,
+        jobCategory: JobCategory,
         benefits: List<String>?,
         companyId: String,
         body: String,
@@ -66,7 +66,7 @@ class OfferResource(val repository: OfferRepository) {
         if (offer != null) {
             offer.title = title
             offer.authorId = UUID.fromString(authorId)
-            offer.jobCategoryIds = jobCategoryIds.map { UUID.fromString(it) }
+            offer.jobCategory = jobCategory
             offer.benefits = benefits
             offer.companyId = UUID.fromString(companyId)
             offer.body = body

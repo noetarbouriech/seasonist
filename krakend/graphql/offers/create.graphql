@@ -1,10 +1,10 @@
 # Create an offer
-mutation addOffer($title: String!, $body: String!, $jobCategoryIds: [String]!, $benefits: [String], $companyId: String!, $open: Boolean!, $authorId: String!) {
-    addOffer(title: $title, body: $body, jobCategoryIds: $jobCategoryIds, benefits: $benefits, companyId: $companyId, open: $open, authorId: $authorId) {
+mutation addOffer($title: String!, $body: String!, $jobCategory: JobCategory!, $benefits: [String], $companyId: String!, $open: Boolean!, $authorId: String!) {
+    addOffer(title: $title, body: $body, jobCategory: $jobCategory, benefits: $benefits, companyId: $companyId, open: $open, authorId: $authorId) {
         id
         title
         authorId
-        jobCategoryIds
+        jobCategory
         benefits
         companyId
         body

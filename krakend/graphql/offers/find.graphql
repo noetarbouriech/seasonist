@@ -4,7 +4,7 @@ query findOfferById($offerId: String!) {
         id
         title
         authorId
-        jobCategoryIds
+        jobCategory
         benefits
         companyId
         body

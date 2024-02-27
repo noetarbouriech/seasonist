@@ -1,10 +1,10 @@
 # Update an offer
-mutation updateOffer($id: String!, $title: String!, $authorId: String!, $jobCategoryIds: [String]!, $benefits: [String], $companyId: String!, $body: String!, $open: Boolean!) {
-    updateOffer(id: $id, title: $title, authorId: $authorId, jobCategoryIds: $jobCategoryIds, benefits: $benefits, companyId: $companyId, body: $body, open: $open) {
+mutation updateOffer($id: String!, $title: String!, $authorId: String!, $jobCategory: JobCategory!, $benefits: [String], $companyId: String!, $body: String!, $open: Boolean!) {
+    updateOffer(id: $id, title: $title, authorId: $authorId, jobCategory: $jobCategory, benefits: $benefits, companyId: $companyId, body: $body, open: $open) {
         id
         title
         authorId
-        jobCategoryIds
+        jobCategory
         benefits
         companyId
         body
