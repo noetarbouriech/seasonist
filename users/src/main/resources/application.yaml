@@ -1,0 +1,22 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: users-svc
+    password: CHANGEME
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/users
+
+  hibernate-orm:
+    database:
+      generation: update
+
+  keycloak:
+    admin-client:
+      enabled: true
+      server-url: http://localhost:8081
+      realm: seasonist
+      client-id: users-service
+      client-secret: P0hGVOOhPLI0BOFePqwipaIZBXBxBrPK
+      username: "" # remove default username
+      password: "" # remove default password
+      grant-type: CLIENT_CREDENTIALS
