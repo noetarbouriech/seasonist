@@ -5,8 +5,8 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.json.JsonValue
 import org.eclipse.microprofile.graphql.GraphQLException
 import org.keycloak.representations.idm.UserRepresentation
-import org.seasonist.entities.Gender
-import org.seasonist.entities.Nationality
+import org.seasonist.entities.enums.Gender
+import org.seasonist.entities.enums.Nationality
 import org.seasonist.entities.User
 import java.util.*
 

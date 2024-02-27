@@ -5,6 +5,9 @@ import jakarta.transaction.Transactional
 import org.eclipse.microprofile.graphql.*
 import org.eclipse.microprofile.graphql.GraphQLException.ExceptionType
 import org.seasonist.entities.*
+import org.seasonist.entities.enums.Gender
+import org.seasonist.entities.enums.JobCategory
+import org.seasonist.entities.enums.Nationality
 import org.seasonist.services.UserService
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -96,7 +99,7 @@ class UserResource(
 		dateStart: String,
 		dateEnd: String?,
 		description: String?,
-		jobCategory: String?,
+		jobCategory: JobCategory?,
 		companyId: UUID?,
 	): User {
 		val user = this.userService.getUser(userId, context)
@@ -148,7 +151,7 @@ class UserResource(
 		dateStart: String,
 		dateEnd: String,
 		searchArea: String?,
-		jobCategory: String?,
+		jobCategory: JobCategory?,
 	): User {
 		val user = this.userService.getUser(userId, context)
 		var availability = Availability.findById(userId)

@@ -3,6 +3,10 @@ package org.seasonist.entities
 import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.seasonist.dtos.RegisterRequest
+import org.seasonist.entities.enums.Gender
+import org.seasonist.entities.enums.Group
+import org.seasonist.entities.enums.Nationality
+import org.seasonist.entities.enums.SubscriptionKind
 import java.util.*
 
 class User {

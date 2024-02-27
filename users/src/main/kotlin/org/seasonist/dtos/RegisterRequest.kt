@@ -1,7 +1,7 @@
 package org.seasonist.dtos
 
-import org.seasonist.entities.Gender
-import org.seasonist.entities.Nationality
+import org.seasonist.entities.enums.Gender
+import org.seasonist.entities.enums.Nationality
 
 data class RegisterRequest(
 	val email: String,

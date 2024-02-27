@@ -6,6 +6,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import org.eclipse.microprofile.graphql.Ignore
 import org.hibernate.annotations.UuidGenerator
+import org.seasonist.entities.enums.JobCategory
 import java.util.*
 
 @Entity(name = "experiences")
@@ -20,7 +21,7 @@ class Experience : PanacheEntityBase {
 	lateinit var dateStart: Date
 	var dateEnd: Date? = null // null if still working
 	var description: String? = null
-	var jobCategory: String? = null
+	var jobCategory: JobCategory? = null
 
 	// foreign keys
 	@Ignore

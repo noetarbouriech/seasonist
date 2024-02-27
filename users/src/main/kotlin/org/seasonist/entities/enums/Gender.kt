@@ -1,4 +1,4 @@
-package org.seasonist.entities
+package org.seasonist.entities.enums
 
 enum class Gender {
 	MALE {
