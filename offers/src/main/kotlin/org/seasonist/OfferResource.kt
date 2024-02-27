@@ -89,4 +89,17 @@ class OfferResource(val repository: OfferRepository) {
         }
         return null
     }
+
+    @Mutation
+    @Transactional
+    @Description("Apply to an offer")
+    fun applyOffer(id: String): Offer? {
+        try { UUID.fromString(id) } catch (e: IllegalArgumentException) { return null }
+        val offer = repository.findById(UUID.fromString(id))
+        if (offer != null && offer.open) {
+            // do something
+            return offer
+        }
+        return null
+    }
 }
