@@ -95,6 +95,7 @@ class UserResource(
 		start: String,
 		end: String?,
 		description: String?,
+		jobCategory: String?,
 		companyId: UUID?,
 	): User {
 		val user = this.userService.getUser(userId, context)
@@ -105,6 +106,7 @@ class UserResource(
 				this.dateStart = dateFormatter.parse(start)
 				this.dateEnd = end?.let { dateFormatter.parse(it) }
 				this.description = description
+				this.jobCategory = jobCategory
 				this.userId = userId
 				this.companyId = companyId
 			}

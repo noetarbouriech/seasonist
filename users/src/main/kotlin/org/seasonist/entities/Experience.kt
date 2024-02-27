@@ -20,6 +20,7 @@ class Experience : PanacheEntityBase {
 	lateinit var dateStart: Date
 	var dateEnd: Date? = null // null if still working
 	var description: String? = null
+	var jobCategory: String? = null
 
 	// foreign keys
 	@Ignore
