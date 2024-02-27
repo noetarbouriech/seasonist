@@ -63,6 +63,7 @@ class UserResource(
 			this.companyId = companyId
 		}
 		Recommendation.persist(recommendation)
+
 		if (UserService.doesSelectedFieldsContains(UserService.RECOMMENDATIONS_FIELD, context))
 			user.recommendations.add(recommendation)
 
@@ -92,8 +93,8 @@ class UserResource(
 	fun addExperience(
 		userId: UUID,
 		jobTitle: String,
-		start: String,
-		end: String?,
+		dateStart: String,
+		dateEnd: String?,
 		description: String?,
 		jobCategory: String?,
 		companyId: UUID?,
@@ -101,16 +102,21 @@ class UserResource(
 		val user = this.userService.getUser(userId, context)
 
 		try {
-			val experience = Experience().apply {
-				this.jobTitle = jobTitle
-				this.dateStart = dateFormatter.parse(start)
-				this.dateEnd = end?.let { dateFormatter.parse(it) }
-				this.description = description
-				this.jobCategory = jobCategory
-				this.userId = userId
-				this.companyId = companyId
-			}
+			val dateStartFormatted = dateFormatter.parse(dateStart)
+			val dateEndFormatted = dateEnd?.let { dateFormatter.parse(it) }
+			if (dateEndFormatted != null && dateStartFormatted.after(dateEndFormatted))
+				throw GraphQLException("Start date cannot be after end date", ExceptionType.ExecutionAborted)
+
+			val experience = Experience()
+			experience.jobTitle = jobTitle
+			experience.dateStart = dateStartFormatted
+			experience.dateEnd = dateEndFormatted
+			experience.description = description
+			experience.jobCategory = jobCategory
+			experience.userId = userId
+			experience.companyId = companyId
 			Experience.persist(experience)
+
 			if (UserService.doesSelectedFieldsContains(UserService.EXPERIENCES_FIELD, context))
 				user.experiences.add(experience)
 		} catch (e: ParseException) {
@@ -152,8 +158,13 @@ class UserResource(
 		}
 
 		try {
-			availability.dateStart = dateFormatter.parse(dateStart)
-			availability.dateEnd = dateFormatter.parse(dateEnd)
+			val dateStartFormatted = dateFormatter.parse(dateStart)
+			val dateEndFormatted = dateFormatter.parse(dateEnd)
+			if (dateStartFormatted.after(dateEndFormatted))
+				throw GraphQLException("Start date cannot be after end date", ExceptionType.ExecutionAborted)
+
+			availability.dateStart = dateStartFormatted
+			availability.dateEnd = dateEndFormatted
 			availability.searchArea = searchArea
 			availability.jobCategory = jobCategory
 			Availability.persist(availability)
