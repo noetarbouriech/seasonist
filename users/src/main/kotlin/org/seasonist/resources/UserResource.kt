@@ -134,4 +134,36 @@ class UserResource(
 
 		return user
 	}
+
+	@Mutation
+	@Transactional
+	fun updateAvailability(
+		userId: UUID,
+		dateStart: String,
+		dateEnd: String,
+		searchArea: String?,
+		jobCategory: String?,
+	): User {
+		val user = this.userService.getUser(userId, context)
+		var availability = Availability.findById(userId)
+		if (availability == null) {
+			availability = Availability()
+			availability.userId = userId
+		}
+
+		try {
+			availability.dateStart = dateFormatter.parse(dateStart)
+			availability.dateEnd = dateFormatter.parse(dateEnd)
+			availability.searchArea = searchArea
+			availability.jobCategory = jobCategory
+			Availability.persist(availability)
+
+			if (UserService.doesSelectedFieldsContains(UserService.AVAILABILITY_FIELD, context))
+				user.availability = availability
+		} catch (e: ParseException) {
+			throw GraphQLException("Invalid date format", ExceptionType.ExecutionAborted)
+		}
+
+		return user
+	}
 }

@@ -15,21 +15,23 @@ class UserService(
 	private val keycloakService: KeycloakService,
 ) {
 	fun getUser(email: String, graphQLContext: Context): User {
-		val userRepr = this.keycloakService.findUser(email)
+		val userRepresentation = this.keycloakService.findUser(email)
 			?: throw GraphQLException("User not found", GraphQLException.ExceptionType.DataFetchingException)
 		val hasRecommendationsField = doesSelectedFieldsContains(RECOMMENDATIONS_FIELD, graphQLContext)
 		val hasExperiencesField = doesSelectedFieldsContains(EXPERIENCES_FIELD, graphQLContext)
+		val hasAvailabilityField = doesSelectedFieldsContains(AVAILABILITY_FIELD, graphQLContext)
 
-		return convertUserRepresentationToUser(userRepr, hasRecommendationsField, hasExperiencesField)
+		return convertUserRepresentationToUser(userRepresentation, hasRecommendationsField, hasExperiencesField, hasAvailabilityField)
 	}
 
 	fun getUser(id: UUID, graphQLContext: Context): User {
-		val userRepr = this.keycloakService.findUser(id)
+		val userRepresentation = this.keycloakService.findUser(id)
 			?: throw GraphQLException("User not found", GraphQLException.ExceptionType.DataFetchingException)
 		val hasRecommendationsField = doesSelectedFieldsContains(RECOMMENDATIONS_FIELD, graphQLContext)
 		val hasExperiencesField = doesSelectedFieldsContains(EXPERIENCES_FIELD, graphQLContext)
+		val hasAvailabilityField = doesSelectedFieldsContains(AVAILABILITY_FIELD, graphQLContext)
 
-		return convertUserRepresentationToUser(userRepr, hasRecommendationsField, hasExperiencesField)
+		return convertUserRepresentationToUser(userRepresentation, hasRecommendationsField, hasExperiencesField, hasAvailabilityField)
 	}
 
 	fun updateUser(
@@ -62,6 +64,7 @@ class UserService(
 	companion object {
 		const val RECOMMENDATIONS_FIELD = "recommendations"
 		const val EXPERIENCES_FIELD = "experiences"
+		const val AVAILABILITY_FIELD = "availability"
 
 		fun doesSelectedFieldsContains(fieldName: String, context: Context): Boolean =
 			context.selectedFields.asJsonArray().any { field ->
@@ -79,11 +82,13 @@ class UserService(
 			userRepresentation: UserRepresentation,
 			hasRecommendations: Boolean,
 			hasExperiences: Boolean,
+			hasAvailability: Boolean,
 		): User {
 			val user = User.from(userRepresentation)
 
 			if (hasRecommendations) user.fetchRecommendations()
 			if (hasExperiences) user.fetchExperiences()
+			if (hasAvailability) user.fetchAvailability()
 
 			return user
 		}

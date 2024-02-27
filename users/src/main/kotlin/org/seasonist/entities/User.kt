@@ -9,19 +9,22 @@ class User {
 	// keycloak id
 	var id: UUID? = null
 
+	// keycloak fields
 	lateinit var firstname: String
 	lateinit var lastname: String
 	lateinit var email: String
 	lateinit var phone: String
 	lateinit var address: String
-
 	var group: Group = Group.WORKER
 	var gender: Gender = Gender.PREFER_NOT_TO_STATE
 	var subscriptionKind: SubscriptionKind = SubscriptionKind.FREE
 	var bio: String = ""
 	var nationality: Nationality? = null
+
+	// database fields
 	var recommendations: MutableList<Recommendation> = mutableListOf()
 	var experiences: MutableList<Experience> = mutableListOf()
+	var availability: Availability? = null
 
 	fun toRepresentation(password: String): UserRepresentation {
 		val userRepr = UserRepresentation()
@@ -60,6 +63,11 @@ class User {
 	fun fetchExperiences() {
 		val userId = this.id ?: return
 		this.experiences = Experience.list("userId", userId).toMutableList()
+	}
+
+	fun fetchAvailability() {
+		val userId = this.id ?: return
+		this.availability = Availability.findById(userId)
 	}
 
 	companion object {
