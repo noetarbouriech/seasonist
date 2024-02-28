@@ -1,11 +1,13 @@
-mutation updateUserInformation {
+mutation updateUserInformation($userId: String!, $firstname: String, $lastname: String, $phone: String, $address: String, $gender: Gender, $bio: String, $nationality: Nationality) {
     updateUserInformation(
-        userId: ""
-        phone: ""
-        address: ""
-        gender: PREFER_NOT_TO_STATE
-        bio: ""
-        nationality: FRANCE
+        userId: $userId
+        firstname: $firstname
+        lastname: $lastname
+        phone: $phone
+        address: $address
+        gender: $gender
+        bio: $bio
+        nationality: $nationality
     ) {
         id
         email

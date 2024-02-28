@@ -1,5 +1,5 @@
-query getUserById {
-    userById(userId: "") {
+query getById($userId: String!) {
+    userById(userId: $userId) {
         id
         email
         firstname
