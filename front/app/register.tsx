@@ -16,6 +16,7 @@ import {
   HStack,
   Icon,
   VStack,
+  KeyboardAvoidingView,
 } from "@gluestack-ui/themed";
 import { router } from "expo-router";
 import { UserIcon } from "lucide-react-native";
@@ -36,30 +37,54 @@ export default function Register() {
           <Icon as={UserIcon} size="xl" />
           <Text size="3xl">Create an account</Text>
         </HStack>
-        <Progress value={40} w={300} size="md">
-          <ProgressFilledTrack />
-        </Progress>
-      </VStack>
-      <HStack h="80%">
+
+        <KeyboardAvoidingView>
         <Box width="80%" gap="$10" alignItems="center">
+
+          {/* name */}
           <Input
-            variant="underlined"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            w="$full"
+              variant="underlined"
+              size="md"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              w="$full"
+          >
+            <InputField placeholder="Name" />
+          </Input>
+
+          {/* surname */}
+          <Input
+              variant="underlined"
+              size="md"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              w="$full"
+          >
+            <InputField placeholder="Surname" />
+          </Input>
+
+          {/* email */}
+          <Input
+              variant="underlined"
+              size="md"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              w="$full"
           >
             <InputField placeholder="Email" />
           </Input>
 
+          {/* password */}
           <Input
-            variant="underlined"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            w="$full"
+              variant="underlined"
+              size="md"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              w="$full"
           >
             <InputField placeholder="Password" type="password" />
             <InputSlot>
@@ -68,12 +93,12 @@ export default function Register() {
           </Input>
 
           <Input
-            variant="underlined"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            w="$full"
+              variant="underlined"
+              size="md"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              w="$full"
           >
             <InputField placeholder="Confirm your password" type="password" />
             <InputSlot>
@@ -81,7 +106,8 @@ export default function Register() {
             </InputSlot>
           </Input>
         </Box>
-      </HStack>
+        </KeyboardAvoidingView>
+      </VStack>
 
       <HStack
         space="md"
