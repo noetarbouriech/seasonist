@@ -35,7 +35,7 @@ class UserService(
 	}
 
 	fun updateUser(
-		id: UUID,
+		oldUser: User,
 		firstname: String?,
 		lastname: String?,
 		phone: String?,
@@ -45,11 +45,8 @@ class UserService(
 		nationality: Nationality?,
 	) {
 		val userRepr = UserRepresentation().apply {
-			this.id = id.toString()
-		}
-
-		if (phone !== null && address !== null && gender !== null && bio !== null && nationality !== null) {
-			userRepr.attributes = mutableMapOf()
+			this.id = oldUser.id.toString()
+			this.attributes = oldUser.toRepresentation("").attributes
 		}
 
 		if (firstname != null) userRepr.firstName = firstname
