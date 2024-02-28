@@ -33,14 +33,13 @@ class UserResource(
 		userId: UUID,
 		firstname: String?,
 		lastname: String?,
-		email: String?,
 		phone: String?,
 		address: String?,
 		gender: Gender?,
 		bio: String?,
 		nationality: Nationality?,
 	): User {
-		this.userService.updateUser(userId, firstname, lastname, email, phone, address, gender, bio, nationality)
+		this.userService.updateUser(userId, firstname, lastname, phone, address, gender, bio, nationality)
 
 		return this.userService.getUser(userId, context)
 	}
