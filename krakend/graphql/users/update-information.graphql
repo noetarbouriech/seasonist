@@ -1,0 +1,20 @@
+mutation updateUserInformation {
+    updateUserInformation(
+        userId: ""
+        phone: ""
+        address: ""
+        gender: PREFER_NOT_TO_STATE
+        bio: ""
+        nationality: FRANCE
+    ) {
+        id
+        email
+        firstname
+        lastname
+        phone
+        address
+        gender
+        bio
+        nationality
+    }
+}

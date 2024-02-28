@@ -1,0 +1,20 @@
+mutation addRecommendationToUser {
+    addRecommendation(
+        userId: ""
+        refereeFirstname: ""
+        refereeLastname: ""
+        refereeEmail: ""
+        refereePhone: ""
+        companyId: ""
+    ) {
+        id
+        recommendations {
+            id
+            email
+            firstname
+            lastname
+            phone
+            companyId
+        }
+    }
+}

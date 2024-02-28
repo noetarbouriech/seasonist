@@ -1,0 +1,22 @@
+mutation addExperienceToUser {
+    addExperience(
+        userId: ""
+        jobTitle: ""
+        dateStart: "2023-01-10"
+        dateEnd: "2023-03-20"
+        description: ""
+        jobCategory: CASINOS_PARCS_ATTRACTION
+        companyId: ""
+    ) {
+        id
+        experiences {
+            id
+            jobTitle
+            jobCategory
+            description
+            dateStart
+            dateEnd
+            companyId
+        }
+    }
+}

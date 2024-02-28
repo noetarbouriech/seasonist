@@ -1,0 +1,16 @@
+mutation deleteRecommendationFromUser {
+    deleteRecommendation(
+        userId: ""
+        recommendationId: ""
+    ) {
+        id
+        recommendations {
+            id
+            email
+            firstname
+            lastname
+            phone
+            companyId
+        }
+    }
+}

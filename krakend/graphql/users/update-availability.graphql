@@ -1,0 +1,17 @@
+mutation updateUserAvailability {
+    updateAvailability(
+        userId: ""
+        searchArea: ""
+        jobCategory: EVENEMENTIEL
+        dateStart: "2024-01-10"
+        dateEnd: "2024-04-20"
+    ) {
+        id
+        availability {
+            searchArea
+            jobCategory
+            dateStart
+            dateEnd
+        }
+    }
+}

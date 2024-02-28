@@ -1,0 +1,36 @@
+query getUserByEmail {
+    userByEmail(email: "") {
+        id
+        email
+        firstname
+        lastname
+        phone
+        address
+        gender
+        bio
+        nationality
+        availability {
+            searchArea
+            jobCategory
+            dateStart
+            dateEnd
+        }
+        experiences {
+            id
+            jobTitle
+            jobCategory
+            description
+            dateStart
+            dateEnd
+            companyId
+        }
+        recommendations {
+            id
+            email
+            firstname
+            lastname
+            phone
+            companyId
+        }
+    }
+}

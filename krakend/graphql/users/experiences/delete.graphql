@@ -1,0 +1,17 @@
+mutation deleteExperienceFromUser {
+    deleteExperience(
+        userId: ""
+        experienceId: ""
+    ) {
+        id
+        experiences {
+            id
+            jobTitle
+            jobCategory
+            description
+            dateStart
+            dateEnd
+            companyId
+        }
+    }
+}
