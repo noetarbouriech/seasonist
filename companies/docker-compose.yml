@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: companies-svc
+      POSTGRES_PASSWORD: CHANGEME
+      POSTGRES_DB: companies
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -11,7 +11,7 @@
       "method": "GET",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8082"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -30,7 +30,7 @@
       "method": "POST",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8082"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -53,7 +53,7 @@
       "method": "GET",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8082"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -75,7 +75,7 @@
       "method": "PATCH",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8082"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -99,7 +99,7 @@
       "method": "DELETE",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8082"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
