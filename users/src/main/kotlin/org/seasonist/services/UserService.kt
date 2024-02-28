@@ -38,7 +38,6 @@ class UserService(
 		id: UUID,
 		firstname: String?,
 		lastname: String?,
-		email: String?,
 		phone: String?,
 		address: String?,
 		gender: Gender?,
@@ -47,12 +46,14 @@ class UserService(
 	) {
 		val userRepr = UserRepresentation().apply {
 			this.id = id.toString()
-			this.attributes = mutableMapOf()
+		}
+
+		if (phone !== null && address !== null && gender !== null && bio !== null && nationality !== null) {
+			userRepr.attributes = mutableMapOf()
 		}
 
 		if (firstname != null) userRepr.firstName = firstname
 		if (lastname != null) userRepr.lastName = lastname
-		if (email != null) userRepr.email = email
 		if (phone != null) userRepr.attributes["phone"] = listOf(phone)
 		if (address != null) userRepr.attributes["address"] = listOf(address)
 		if (gender != null) userRepr.attributes["gender"] = listOf(gender.toString())
