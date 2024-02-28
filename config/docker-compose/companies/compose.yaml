@@ -5,11 +5,8 @@ services:
     build:
       context: ../../../companies/
       dockerfile: src/main/docker/Dockerfile.jvm
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U companies-svc" ]
-      interval: 5s
-      timeout: 5s
-      retries: 6
+    depends_on:
+      - companies-db
     ports:
       - "127.0.0.1:8082:8080"
 
@@ -19,6 +16,11 @@ services:
       POSTGRES_USER: companies-svc
       POSTGRES_PASSWORD: CHANGEME
       POSTGRES_DB: companies
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U companies-svc -d companies" ]
+      interval: 5s
+      timeout: 5s
+      retries: 6
 #    ports:
 #      - "127.0.0.1:5432:5432"
     volumes:
