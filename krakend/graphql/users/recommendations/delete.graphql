@@ -1,7 +1,7 @@
-mutation deleteRecommendationFromUser {
+mutation deleteRecommendationFromUser($userId: String!, $recommendationId: String!) {
     deleteRecommendation(
-        userId: ""
-        recommendationId: ""
+        userId: $userId
+        recommendationId: $recommendationId
     ) {
         id
         recommendations {

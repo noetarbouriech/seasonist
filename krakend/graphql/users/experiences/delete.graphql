@@ -1,7 +1,7 @@
-mutation deleteExperienceFromUser {
+mutation deleteExperienceFromUser($userId: String!, $experienceId: String!) {
     deleteExperience(
-        userId: ""
-        experienceId: ""
+        userId: $userId
+        experienceId: $experienceId
     ) {
         id
         experiences {

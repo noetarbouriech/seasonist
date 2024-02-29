@@ -1,12 +1,12 @@
-mutation addExperienceToUser {
+mutation addExperienceToUser($userId: String!, $jobTitle: String!, $dateStart: String!, $dateEnd: String, $description: String, $jobCategory: JobCategory, $companyId: String) {
     addExperience(
-        userId: ""
-        jobTitle: ""
-        dateStart: "2023-01-10"
-        dateEnd: "2023-03-20"
-        description: ""
-        jobCategory: CASINOS_PARCS_ATTRACTION
-        companyId: ""
+        userId: $userId
+        jobTitle: $jobTitle
+        dateStart: $dateStart
+        dateEnd: $dateEnd
+        description: $description
+        jobCategory: $jobCategory
+        companyId: $companyId
     ) {
         id
         experiences {

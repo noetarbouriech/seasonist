@@ -223,10 +223,7 @@
             "backend/graphql": {
               "type": "mutation",
               "operationName": "updateUserInformation",
-              "query_path": "/graphql/users/update-information.graphql",
-              "variables": {
-                "userId": "{JWT.sub}"
-              }
+              "query_path": "/graphql/users/update-information.graphql"
             }
           }
         }
@@ -253,10 +250,115 @@
             "backend/graphql": {
               "type": "mutation",
               "operationName": "updateUserAvailability",
-              "query_path": "/graphql/users/update-availability.graphql",
-              "variables": {
-                "userId": "{JWT.sub}"
-              }
+              "query_path": "/graphql/users/update-availability.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Add recommendation to user",
+      "endpoint": "/api/users/me/recommendations",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addRecommendationToUser",
+              "query_path": "/graphql/users/recommendations/add.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete recommendation from user",
+      "endpoint": "/api/users/me/recommendations/{id}",
+      "method": "DELETE",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "deleteRecommendationFromUser",
+              "query_path": "/graphql/users/recommendations/delete.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Add experience to user",
+      "endpoint": "/api/users/me/experiences",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addExperienceToUser",
+              "query_path": "/graphql/users/experiences/add.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete experience from user",
+      "endpoint": "/api/users/me/experiences/{id}",
+      "method": "DELETE",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "deleteExperienceFromUser",
+              "query_path": "/graphql/users/experiences/delete.graphql"
             }
           }
         }
