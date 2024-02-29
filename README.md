@@ -4,25 +4,25 @@ School Project – Microservices App for seasonal workers.
 
 ## Getting Started
 
-First get a local copy of the repository:
+First, get a local copy of the repository:
 
 ```bash
 git clone https://github.com/noetarbouriech/seasonist.git
 ```
 
-First install the dependencies:
+After that, install the dependencies:
 
 ```bash
 make dependencies
 ```
 
-Then you can start the backend services with the following command:
+Then, you can start the backend services with:
 
 ```bash
 docker compose up -d
 ```
 
-To get the app running, first install the dependencies:
+Finally, to get the app running, execute one of the following commands:
 
 > If you want to start with the emulator:
 > ```bash
