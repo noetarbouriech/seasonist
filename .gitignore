@@ -36,3 +36,9 @@ release.properties
 
 # Quarkus
 .quarkus/
+
+# Config
+.env*.local
+
+# React native / Expo
+android/
