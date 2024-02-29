@@ -20,7 +20,7 @@ export default function RootLayout() {
         console.warn(e);
       } finally {
         setAppIsReady(true);
-        router.replace("/home");
+        router.replace("/login");
       }
     }
 
@@ -41,10 +41,9 @@ export default function RootLayout() {
     <GluestackUIProvider>
       <SheetProvider>
         <Stack
-          initialRouteName="/home"
+          initialRouteName="/login"
           screenOptions={{ headerShown: false }}
         />
-        <BottomTabNavigation />
       </SheetProvider>
     </GluestackUIProvider>
   );
