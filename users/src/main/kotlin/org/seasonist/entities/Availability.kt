@@ -15,9 +15,8 @@ class Availability : PanacheEntityBase {
 	@Id
 	@Ignore
 	lateinit var userId: UUID
-
 	lateinit var dateStart: Date
 	lateinit var dateEnd: Date
-	var searchArea: String? = null
-	var jobCategory: JobCategory? = null
+	lateinit var jobCategory: JobCategory
+	lateinit var searchArea: String
 }

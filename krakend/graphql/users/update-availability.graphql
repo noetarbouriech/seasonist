@@ -1,10 +1,10 @@
-mutation updateUserAvailability {
+mutation updateUserAvailability($userId: String!, $searchArea: String!, $jobCategory: JobCategory!, $dateStart: String!, $dateEnd: String!) {
     updateAvailability(
-        userId: ""
-        searchArea: ""
-        jobCategory: EVENEMENTIEL
-        dateStart: "2024-01-10"
-        dateEnd: "2024-04-20"
+        userId: $userId
+        searchArea: $searchArea
+        jobCategory: $jobCategory
+        dateStart: $dateStart
+        dateEnd: $dateEnd
     ) {
         id
         availability {

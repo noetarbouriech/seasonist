@@ -156,8 +156,8 @@ class UserResource(
 		userId: UUID,
 		dateStart: String,
 		dateEnd: String,
-		searchArea: String?,
-		jobCategory: JobCategory?,
+		searchArea: String,
+		jobCategory: JobCategory,
 	): User {
 		val user = this.userService.getUser(userId, context)
 		log.info("update user availability of user $userId")

@@ -225,7 +225,37 @@
               "operationName": "updateUserInformation",
               "query_path": "/graphql/users/update-information.graphql",
               "variables": {
-                "userId": "{userId}"
+                "userId": "{JWT.sub}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update user's availability",
+      "endpoint": "/api/users/me/availability",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateUserAvailability",
+              "query_path": "/graphql/users/update-availability.graphql",
+              "variables": {
+                "userId": "{JWT.sub}"
               }
             }
           }
