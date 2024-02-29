@@ -180,6 +180,29 @@
       ]
     },
     {
+      "@comment": "Search for an offer",
+      "endpoint": "/api/search/offers",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://offers-api:8080" ],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "searchOffer",
+              "query_path": "/graphql/offers/search.graphql",
+              "variables": {
+                "search": "{search}",
+                "page": "{page}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "@comment": "Update offer",
       "endpoint": "/api/offers",
       "method": "PATCH",

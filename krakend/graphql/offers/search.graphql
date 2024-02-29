@@ -1,0 +1,9 @@
+query searchOffer($search: String!, $page: Int!) {
+    searchOffer(search: $search, page: $page) {
+        id
+        title
+        jobCategory
+        companyId
+        open
+    }
+}

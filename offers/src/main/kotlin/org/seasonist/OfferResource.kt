@@ -1,5 +1,6 @@
 package org.seasonist
 
+import io.quarkus.panache.common.Page
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import org.eclipse.microprofile.graphql.Description
@@ -101,5 +102,13 @@ class OfferResource(val repository: OfferRepository) {
             return offer
         }
         return null
+    }
+
+    @Query
+    @Description("Search an offer by title")
+    fun searchOffer(search: String, page: Int): List<Offer>? {
+        if (search.isBlank() || page < 1) return emptyList()
+        val query = repository.find("lower(title) like lower(?1)", "%$search%")
+        return query.page<Offer>(Page.of(page - 1, 10)).list()
     }
 }
