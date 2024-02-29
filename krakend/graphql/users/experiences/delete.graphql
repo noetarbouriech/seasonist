@@ -1,0 +1,17 @@
+mutation deleteExperienceFromUser($userId: String!, $experienceId: String!) {
+    deleteExperience(
+        userId: $userId
+        experienceId: $experienceId
+    ) {
+        id
+        experiences {
+            id
+            jobTitle
+            jobCategory
+            description
+            dateStart
+            dateEnd
+            companyId
+        }
+    }
+}

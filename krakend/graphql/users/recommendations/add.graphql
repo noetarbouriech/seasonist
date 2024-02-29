@@ -1,0 +1,20 @@
+mutation addRecommendationToUser($userId: String!, $refereeFirstname: String!, $refereeLastname: String!, $refereeEmail: String, $refereePhone: String, $companyId: String) {
+    addRecommendation(
+        userId: $userId
+        refereeFirstname: $refereeFirstname
+        refereeLastname: $refereeLastname
+        refereeEmail: $refereeEmail
+        refereePhone: $refereePhone
+        companyId: $companyId
+    ) {
+        id
+        recommendations {
+            id
+            email
+            firstname
+            lastname
+            phone
+            companyId
+        }
+    }
+}

@@ -20,3 +20,13 @@ quarkus:
       username: "" # remove default username
       password: "" # remove default password
       grant-type: CLIENT_CREDENTIALS
+
+"%prod":
+  quarkus:
+    datasource:
+      jdbc:
+        url: jdbc:postgresql://users-db:5432/users
+
+    keycloak:
+      admin-client:
+        server-url: http://keycloak:8080

@@ -1,0 +1,22 @@
+mutation updateUserInformation($userId: String!, $firstname: String, $lastname: String, $phone: String, $address: String, $gender: Gender, $bio: String, $nationality: Nationality) {
+    updateUserInformation(
+        userId: $userId
+        firstname: $firstname
+        lastname: $lastname
+        phone: $phone
+        address: $address
+        gender: $gender
+        bio: $bio
+        nationality: $nationality
+    ) {
+        id
+        email
+        firstname
+        lastname
+        phone
+        address
+        gender
+        bio
+        nationality
+    }
+}

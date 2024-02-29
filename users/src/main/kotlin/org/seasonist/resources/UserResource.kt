@@ -17,6 +17,7 @@ import java.util.*
 class UserResource(
 	private val userService: UserService,
 	private val context: Context,
+	private val log: org.jboss.logging.Logger,
 ) {
 	private val dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
@@ -33,14 +34,15 @@ class UserResource(
 		userId: UUID,
 		firstname: String?,
 		lastname: String?,
-		email: String?,
 		phone: String?,
 		address: String?,
 		gender: Gender?,
 		bio: String?,
 		nationality: Nationality?,
 	): User {
-		this.userService.updateUser(userId, firstname, lastname, email, phone, address, gender, bio, nationality)
+		val oldUser = this.userService.getUser(userId, context)
+		log.info("updating user info of $userId")
+		this.userService.updateUser(oldUser, firstname, lastname, phone, address, gender, bio, nationality)
 
 		return this.userService.getUser(userId, context)
 	}
@@ -56,6 +58,7 @@ class UserResource(
 		companyId: UUID?,
 	): User {
 		val user = this.userService.getUser(userId, context)
+		log.info("adding user recommendation of $userId")
 
 		val recommendation = Recommendation().apply {
 			this.firstname = refereeFirstname
@@ -80,6 +83,7 @@ class UserResource(
 		recommendationId: UUID,
 	): User {
 		val user = this.userService.getUser(userId, context)
+		log.info("deleting user recommendation $recommendationId on user $userId")
 
 		val recommendation = user.recommendations.find { it.id == recommendationId }
 			?: throw GraphQLException("Recommendation not found", ExceptionType.DataFetchingException)
@@ -103,6 +107,7 @@ class UserResource(
 		companyId: UUID?,
 	): User {
 		val user = this.userService.getUser(userId, context)
+		log.info("adding user experience on $userId")
 
 		try {
 			val dateStartFormatted = dateFormatter.parse(dateStart)
@@ -133,6 +138,7 @@ class UserResource(
 	@Transactional
 	fun deleteExperience(userId: UUID, experienceId: UUID): User {
 		val user = this.userService.getUser(userId, context)
+		log.info("deleting user experience $experienceId on user $userId")
 
 		val experience = user.experiences.find { it.id == experienceId }
 			?: throw GraphQLException("Experience not found", ExceptionType.DataFetchingException)
@@ -150,10 +156,11 @@ class UserResource(
 		userId: UUID,
 		dateStart: String,
 		dateEnd: String,
-		searchArea: String?,
-		jobCategory: JobCategory?,
+		searchArea: String,
+		jobCategory: JobCategory,
 	): User {
 		val user = this.userService.getUser(userId, context)
+		log.info("update user availability of user $userId")
 		var availability = Availability.findById(userId)
 		if (availability == null) {
 			availability = Availability()

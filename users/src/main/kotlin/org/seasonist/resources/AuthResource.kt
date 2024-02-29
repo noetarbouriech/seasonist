@@ -13,6 +13,7 @@ import org.seasonist.services.KeycloakService
 @Path("/auth")
 class AuthResource(
 	private val keycloakService: KeycloakService,
+	private val log: org.jboss.logging.Logger,
 ) {
 	@POST
 	@Path("/register")
@@ -26,6 +27,8 @@ class AuthResource(
 		val user = User.from(request)
 		val newUser = this.keycloakService.createUser(user, request.password)
 			?: return Response.status(Status.CONFLICT).entity(ErrorResponse("User already exists")).build()
+
+		log.info("registering user ${newUser.id}")
 
 		return Response.ok(newUser).build()
 	}

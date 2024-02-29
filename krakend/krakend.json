@@ -11,7 +11,7 @@
       "method": "GET",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8080"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -30,7 +30,7 @@
       "method": "POST",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8080"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -53,7 +53,7 @@
       "method": "GET",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8080"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -75,7 +75,7 @@
       "method": "PATCH",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8080"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -99,7 +99,7 @@
       "method": "DELETE",
       "backend": [
         {
-          "host": ["http://companies-api:8080" ],
+          "host": ["http://companies-api:8080"],
           "url_pattern": "/graphql?timeout=4s",
           "timeout": "4100ms",
           "extra_config": {
@@ -110,6 +110,255 @@
               "variables": {
                 "id": "{id}"
               }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Register a user",
+      "endpoint": "/api/auth/register",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "backend": [
+        {
+          "encoding": "no-op",
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/auth/register"
+        }
+      ]
+    },
+    {
+      "@comment": "Find the user's profile",
+      "endpoint": "/api/users/me",
+      "method": "GET",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s&userId={JWT.sub}",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "getById",
+              "query_path": "/graphql/users/get-by-id.graphql",
+              "variables": {
+                "userId": "{JWT.sub}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Find a user by id",
+      "endpoint": "/api/users/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "getById",
+              "query_path": "/graphql/users/get-by-id.graphql",
+              "variables": {
+                "userId": "{id}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Find a user by email",
+      "endpoint": "/api/users/emails/{email}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "query",
+              "operationName": "getByEmail",
+              "query_path": "/graphql/users/get-by-email.graphql",
+              "variables": {
+                "email": "{email}"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update user's information",
+      "endpoint": "/api/users/me/information",
+      "method": "PATCH",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateUserInformation",
+              "query_path": "/graphql/users/update-information.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Update user's availability",
+      "endpoint": "/api/users/me/availability",
+      "method": "PATCH",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "updateUserAvailability",
+              "query_path": "/graphql/users/update-availability.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Add recommendation to user",
+      "endpoint": "/api/users/me/recommendations",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addRecommendationToUser",
+              "query_path": "/graphql/users/recommendations/add.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete recommendation from user",
+      "endpoint": "/api/users/me/recommendations/{id}",
+      "method": "DELETE",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "deleteRecommendationFromUser",
+              "query_path": "/graphql/users/recommendations/delete.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Add experience to user",
+      "endpoint": "/api/users/me/experiences",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "addExperienceToUser",
+              "query_path": "/graphql/users/experiences/add.graphql"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@comment": "Delete experience from user",
+      "endpoint": "/api/users/me/experiences/{id}",
+      "method": "DELETE",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/seasonist/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "operation_debug": true
+        }
+      },
+      "backend": [
+        {
+          "host": ["http://users-api:8080"],
+          "url_pattern": "/graphql?timeout=4s",
+          "timeout": "4100ms",
+          "extra_config": {
+            "backend/graphql": {
+              "type": "mutation",
+              "operationName": "deleteExperienceFromUser",
+              "query_path": "/graphql/users/experiences/delete.graphql"
             }
           }
         }
