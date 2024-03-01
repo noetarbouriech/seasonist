@@ -5,6 +5,7 @@ import { SplashScreen, Stack, router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { SheetProvider, registerSheet } from "react-native-actions-sheet";
 
+import BottomTabNavigation from "../components/BottomTabNavigation";
 import OfferFilter from "../components/offers/OfferFilter";
 import { useAuthStore } from "../stores/auth.store";
 
@@ -49,6 +50,7 @@ export default function RootLayout() {
           initialRouteName="/login"
           screenOptions={{ headerShown: false }}
         />
+        {isLogged && <BottomTabNavigation />}
       </SheetProvider>
     </GluestackUIProvider>
   );

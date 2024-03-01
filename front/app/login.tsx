@@ -1,7 +1,7 @@
 import { Box, Center, Image, Button, ButtonText } from "@gluestack-ui/themed";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import LoginPattern from "../components/LoginPattern";
 import { useAuth, useDiscovery } from "../hooks/useAuth";
@@ -12,17 +12,17 @@ WebBrowser.maybeCompleteAuthSession();
 export default function Login() {
   const discovery = useDiscovery();
   const { request, promptAsync } = useAuth(discovery);
+
   const isLogged = useAuthStore((state) => state.isLogged);
+  useEffect(() => {
+    if (!isLogged) return;
+    router.replace("/home");
+  }, [isLogged]);
 
   const onLoginClick = useCallback(() => {
     if (request === null) return;
     promptAsync();
   }, [request, promptAsync]);
-
-  if (isLogged) {
-    router.replace("/home");
-    return null;
-  }
 
   return (
     <LoginPattern>

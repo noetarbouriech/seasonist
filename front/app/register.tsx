@@ -1,6 +1,5 @@
 import {
   Box,
-  Center,
   Input,
   InputField,
   InputIcon,
@@ -9,8 +8,6 @@ import {
   Button,
   ButtonText,
   Text,
-  Progress,
-  ProgressFilledTrack,
   ButtonIcon,
   ArrowLeftIcon,
   HStack,
@@ -20,8 +17,21 @@ import {
 } from "@gluestack-ui/themed";
 import { router } from "expo-router";
 import { UserIcon } from "lucide-react-native";
+import { useEffect } from "react";
+
+import { useAuthStore } from "../stores/auth.store";
 
 export default function Register() {
+  const isLogged = useAuthStore((state) => state.isLogged);
+  useEffect(() => {
+    if (!isLogged) return;
+    router.replace("/home");
+  }, [isLogged]);
+
+  const onRegisterClick = useCallback(() => {
+    // send register request
+  }, []);
+
   return (
     <Box h="$full">
       <VStack
@@ -40,7 +50,6 @@ export default function Register() {
 
         <KeyboardAvoidingView>
         <Box width="80%" gap="$10" alignItems="center">
-
           {/* name */}
           <Input
               variant="underlined"
