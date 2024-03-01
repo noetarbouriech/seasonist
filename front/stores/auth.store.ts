@@ -17,7 +17,7 @@ type Action = {
   register: (request: RegisterRequest) => Promise<boolean>;
 };
 
-export const useAuthStore = create<State & Action>((set, get) => ({
+export const useAuthStore = create<State & Action>((set) => ({
   isLogged: false,
   sub: null,
   accessToken: null,
