@@ -1,20 +1,29 @@
-import {
-  Box,
-  Center,
-  Image,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  EyeIcon,
-  Button,
-  ButtonText,
-} from "@gluestack-ui/themed";
+import { Box, Center, Image, Button, ButtonText } from "@gluestack-ui/themed";
+import { router } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
+import { useCallback } from "react";
 
 import LoginPattern from "../components/LoginPattern";
-import { router } from "expo-router";
+import { useAuth, useDiscovery } from "../hooks/useAuth";
+import { useAuthStore } from "../stores/auth.store";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
+  const discovery = useDiscovery();
+  const { request, promptAsync } = useAuth(discovery);
+  const isLogged = useAuthStore((state) => state.isLogged);
+
+  const onLoginClick = useCallback(() => {
+    if (request === null) return;
+    promptAsync();
+  }, [request, promptAsync]);
+
+  if (isLogged) {
+    router.replace("/home");
+    return null;
+  }
+
   return (
     <LoginPattern>
       <Center h="$full">
@@ -23,30 +32,6 @@ export default function Login() {
             source={require("../assets/images/logo-vertical.png")}
             alt="logo"
           />
-          <Input
-            variant="underlined"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            w="$full"
-          >
-            <InputField placeholder="Email" />
-          </Input>
-
-          <Input
-            variant="underlined"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            w="$full"
-          >
-            <InputField placeholder="Password" type="password" />
-            <InputSlot>
-              <InputIcon as={EyeIcon} size="xl" />
-            </InputSlot>
-          </Input>
 
           <Box gap={12}>
             <Button
@@ -56,7 +41,7 @@ export default function Login() {
               action="primary"
               isDisabled={false}
               isFocusVisible={false}
-              onPress={() => router.push("/other")}
+              onPress={onLoginClick}
             >
               <ButtonText>Login</ButtonText>
             </Button>
