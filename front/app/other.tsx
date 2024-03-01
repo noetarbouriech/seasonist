@@ -1,13 +1,12 @@
-import { Center, Heading, Image, View } from "@gluestack-ui/themed";
+import { Center, Heading, View } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 
 export default function Other() {
   return (
     <View>
       <Center h="$full" gap="$10">
-        <Heading size="2xl">Dog</Heading>
-        <Image source={require("../assets/images/dog.jpg")} alt="dog" />
-        <Link href="/">Go to home</Link>
+        <Heading size="xl">Page not available, sorry...</Heading>
+        <Link href="/">Go to homepage</Link>
       </Center>
     </View>
   );

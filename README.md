@@ -33,3 +33,10 @@ Finally, to get the app running, execute one of the following commands:
 > ```bash
 > cd front/ && npm run start
 > ```
+
+> [!NOTE]
+> To get keycloak and the api gateway working with the mobile app,
+> you need to set the `YOUR_IP` part in the variables `EXPO_PUBLIC_API_URL`
+> and `EXPO_PUBLIC_KEYCLOAK_REALM` in the [`front/.env`](./front/.env) file to your local IP address.
+> 
+> For the mobile app to work, you need to be on the same network as the backend services.

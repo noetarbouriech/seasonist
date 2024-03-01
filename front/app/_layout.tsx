@@ -7,9 +7,11 @@ import { SheetProvider, registerSheet } from "react-native-actions-sheet";
 
 import BottomTabNavigation from "../components/BottomTabNavigation";
 import OfferFilter from "../components/offers/OfferFilter";
+import { useAuthStore } from "../stores/auth.store";
 
 export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const isLogged = useAuthStore((state) => state.isLogged);
 
   useEffect(() => {
     async function prepare() {
@@ -20,12 +22,16 @@ export default function RootLayout() {
         console.warn(e);
       } finally {
         setAppIsReady(true);
-        router.replace("/login");
+        if (isLogged) {
+          router.replace("/home");
+        } else {
+          router.replace("/login");
+        }
       }
     }
 
     prepare();
-  }, []);
+  }, [isLogged]);
 
   const onLayoutRootView = useCallback(async () => {
     if (!appIsReady) return;
@@ -44,6 +50,7 @@ export default function RootLayout() {
           initialRouteName="/login"
           screenOptions={{ headerShown: false }}
         />
+        {isLogged && <BottomTabNavigation />}
       </SheetProvider>
     </GluestackUIProvider>
   );

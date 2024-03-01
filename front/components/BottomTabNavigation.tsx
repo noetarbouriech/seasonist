@@ -76,7 +76,7 @@ export default function BottomTabNavigation() {
           label="Profile"
           icon={<UserCircleIcon />}
           isActive={activePage === Page.Profile}
-          href="/other"
+          href="/profile"
         />
       </HStack>
     </>
